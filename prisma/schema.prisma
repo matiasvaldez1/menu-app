@@ -55,6 +55,36 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  foodShop      FoodShop[]
+}
+
+model FoodShop {
+  id            String    @id @default(cuid())
+  userId        String    
+  name          String
+  qr            String   @unique
+  logo          String   
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  categories    Categories[]
+}
+
+model Categories {
+  id            String    @id @default(cuid())
+  title         String
+  logo          String   
+  foodShopId    String
+  foodShop      FoodShop  @relation(fields: [foodShopId],references: [id], onDelete: Cascade)
+  items         Item[]
+}
+
+model Item {
+  id            String    @id @default(cuid())
+  title         String
+  logo          String   
+  price         Int
+  description   String
+  categoriesId  String
+  categories    Categories  @relation(fields: [categoriesId], references: [id], onDelete: Cascade)
 }
 
 model VerificationToken {
@@ -64,3 +94,5 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+

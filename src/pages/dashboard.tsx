@@ -3,7 +3,7 @@ import UserLayout from "../components/user/UserLayout";
 export default function Dashboard() {
   return (
     <>
-      <UserLayout>
+      <UserLayout title="Dashboard">
         <div>Nisman</div>
       </UserLayout>
     </>
