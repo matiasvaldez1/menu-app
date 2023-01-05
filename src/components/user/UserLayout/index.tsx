@@ -16,7 +16,7 @@ export default function UserLayout({
       <div className="flex flex-col">
         <HorizontalNav />
         <div className="grid grid-cols-10">
-          <VerticalNav className="col-span-1" />
+          <VerticalNav className="col-span-1 bg-gray-600 h-screen" />
           <div className="col-auto flex">{children}</div>
         </div>
       </div>

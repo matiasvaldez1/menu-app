@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function HorizontalNav() {
   const { data } = useSession();
   return (
-    <div className="mx-8 flex justify-between text-sm">
+    <div className="px-8 flex justify-between text-sm bg-gray-600">
       <div>TusMenus App</div>
       <div className="flex flex-col justify-center">
         <Image
