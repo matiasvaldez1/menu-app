@@ -1,10 +1,13 @@
-import UserLayout from "../components/user/UserLayout";
+import Button from "@/components/ui/Button";
+import UserLayout from "@/components/user/UserLayout";
 
 export default function Dashboard() {
   return (
     <>
       <UserLayout title="Dashboard">
-        <div>Nisman</div>
+        <div>
+        <Button>Test</Button>
+        </div>
       </UserLayout>
     </>
   );
