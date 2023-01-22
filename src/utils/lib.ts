@@ -5,7 +5,12 @@ export const routesRoots: Record<string, string> = {
   dashboard: "/dashboard",
 };
 
+export const publicRoutes:  Record<string, string> = {
+  profiles: "/profiles",
+};
+
 export const supportedRoots = Object.values(routesRoots);
+export const publicRoots = Object.values(publicRoutes)
 
 export async function redirect(
   context: {

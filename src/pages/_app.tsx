@@ -1,7 +1,7 @@
 import { AppContext, type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { getSession, SessionProvider } from "next-auth/react";
-import { supportedRoots, redirect } from "../utils/lib";
+import { supportedRoots, redirect, publicRoutes, publicRoots } from "../utils/lib";
 import { NextPageContext, NextComponentType } from "next";
 
 import { trpc } from "../utils/trpc";
@@ -28,10 +28,14 @@ MyApp.getInitialProps = async function (context: Exclude<AppContext, Session>) {
   const isPrivateRoute = supportedRoots.some((root) =>
     router.pathname.startsWith(root)
   );
+  const isPublicRoute = publicRoots.some((root) =>
+    router.pathname.startsWith(root)
+  );
   const userExists = Boolean(user?.user?.id);
 
-  if (userExists && !isPrivateRoute) return redirect(context, "/dashboard");
-  if (!userExists && isPrivateRoute) return redirect(context, "/");
+  if(isPublicRoute) return context
+  if (userExists && !isPrivateRoute && !isPublicRoute) return redirect(context, "/dashboard");
+  if (!userExists && isPrivateRoute && !isPublicRoute) return redirect(context, "/");
 
   return context;
 };

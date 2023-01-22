@@ -6,9 +6,9 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { trpc } from "src/utils/trpc";
 
 export default function CreateShopInfo({
-  isUserCreated,
+  showModalCreateShop,
 }: {
-  isUserCreated: (bool: boolean) => void;
+  showModalCreateShop: (bool: boolean) => void;
 }) {
   const createShopInfoMutation =
     trpc.dashboardRouter.createShopUser.useMutation();
@@ -31,7 +31,7 @@ export default function CreateShopInfo({
 
   useWatcher(() => {
     if (createShopInfoMutation.data) {
-      isUserCreated(true);
+      showModalCreateShop(false);
     }
   }, [createShopInfoMutation.data]);
   return (

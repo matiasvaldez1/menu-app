@@ -6,29 +6,24 @@ import { trpc } from "src/utils/trpc";
 
 export default function DashboardView() {
   const shop = trpc.dashboardRouter.getUserShopInfo.useQuery();
-  const [createShop, setCreateShop] = useState(false);
+  const [showModalCreateShop, setShowModalCreateShop] = useState(false);
 
   useEffect(() => {
-    /* if(shop.data?.name) {
-      setCreateShop(false)
-    } else {
-      setCreateShop(true)
-    } */
-    //setCreateShop(Boolean(!shop.data?.name));
-  }, []);
+    setShowModalCreateShop(Boolean(!shop.data?.name));
+  }, [shop.data]);
 
   return (
     <div>
       DashboardView
       <Modal
         forwardControl
-        visible={createShop}
-        onVisibleChange={setCreateShop}
+        visible={showModalCreateShop}
+        onVisibleChange={setShowModalCreateShop}
         closable={false}
         trigger={<div>{""}</div>}
         component={CreateShopInfo}
         componentProps={{
-          isUserCreated: setCreateShop,
+          showModalCreateShop: setShowModalCreateShop,
         }}
       />
     </div>
