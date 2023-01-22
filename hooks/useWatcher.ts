@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import useRenderIndicator from '@/hooks/useRenderIndicator'
+import useRenderIndicator from '@hooks/useRenderIndicator'
 
 export default function useWatcher(reaction: () => any, deps?: any[]) {
   const render = useRenderIndicator()

@@ -1,7 +1,6 @@
 # Despues de clonar
 
 npm i
-npx prisma introspect
 
 # Correr dev
 
