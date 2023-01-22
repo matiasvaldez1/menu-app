@@ -1,13 +1,14 @@
-import Button from "@/components/ui/Button";
-import UserLayout from "@/components/user/UserLayout";
+import UserLayout from "@components/user/UserLayout";
+import DashboardView from "@components/user/Dashboard";
+import { trpc } from "src/utils/trpc";
+
 
 export default function Dashboard() {
+  //const session = trpc.auth.getSession.useQuery()
   return (
     <>
       <UserLayout title="Dashboard">
-        <div>
-        <Button>Test</Button>
-        </div>
+        <DashboardView />
       </UserLayout>
     </>
   );

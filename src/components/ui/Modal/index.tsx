@@ -12,8 +12,8 @@ import {
   MemoExoticComponent,
 } from "react";
 import { createPortal } from "react-dom";
-import useUncontrolled from "@/hooks/useUncontrolled";
-import Button from "@/components/ui/Button";
+import useUncontrolled from "@hooks/useUncontrolled";
+import Button from "@components/ui/Button";
 
 const defaultRoot = "modal-root";
 const defaultButtonsToClose = ["Escape"];
@@ -125,7 +125,7 @@ function Modal({
       ? cloneElement(trigger, { onClick: handleOpen })
       : null;
 
-  if (typeof window === "undefined") return <>{triggerElement}</>;
+  if (typeof window === "undefined") return <div>{triggerElement}</div>;
 
   const modalRoot = useMemo(
     () =>
@@ -166,7 +166,7 @@ function Modal({
         {...divProps}
       >
         {closable && (
-          <Button className="absolute top-3 right-3" onClick={handleClose}>
+          <Button type="cancel" className="absolute top-3 right-3" onClick={handleClose}>
             {closeIcon}
           </Button>
         )}

@@ -1,5 +1,5 @@
 import { forwardRef, memo } from "react";
-import Spin from "@/components/ui/Spin";
+import Spin from "@components/ui/Spin";
 import cn from "classnames";
 
 type ButtonElement = HTMLButtonElement;
@@ -43,7 +43,7 @@ const Button = forwardRef<ButtonElement, ButtonProps>(function ButtonComponent(
   });
   return (
     <button className={buttonClasses} type={htmlType} ref={ref} {...restProps}>
-      {children} <Spin loading={loading} />
+      {children} {loading && <Spin loading={loading} />}
     </button>
   );
 });

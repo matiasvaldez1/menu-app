@@ -1,6 +1,6 @@
 import HorizontalNav from "./HorizontalNav";
 import VerticalNav from "./VerticalNav";
-import { CommonHead } from "../../ui/Seo";
+import { CommonHead } from "@components/ui/Seo";
 import { ReactElement } from "react";
 
 export default function UserLayout({

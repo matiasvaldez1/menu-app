@@ -17,8 +17,9 @@
     "incremental": true,
     "noUncheckedIndexedAccess": true,
     "paths": {
-      "@/components/*": ["src/components/*"],
-      "@/hooks/*": ["hooks/*"]
+      "@components/*": ["src/components/*"],
+      "@hooks/*": ["hooks/*"],
+      "@public/*": ["public/*"],
     },
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs"],
