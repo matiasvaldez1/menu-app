@@ -38,13 +38,20 @@ const Button = forwardRef<ButtonElement, ButtonProps>(function ButtonComponent(
   }: ButtonProps,
   ref
 ) {
-  const buttonClasses = cn(className, typeClasses[type], 'flex' ,{
+  const buttonClasses = cn(className, typeClasses[type], "flex", {
     "opacity-50 cursor-not-allowed": preventClickOnLoading && loading,
   });
   return (
-    <button className={buttonClasses} type={htmlType} ref={ref} {...restProps}>
-      {children} {loading && <Spin loading={loading} />}
-    </button>
+    <div>
+      <button
+        className={buttonClasses}
+        type={htmlType}
+        ref={ref}
+        {...restProps}
+      >
+        {children} {loading && <Spin loading={loading} />}
+      </button>
+    </div>
   );
 });
 

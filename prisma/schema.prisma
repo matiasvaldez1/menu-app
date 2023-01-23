@@ -73,7 +73,7 @@ model Categories {
   title         String
   logo          String   
   foodShopId    String
-  foodShop      FoodShop  @relation(fields: [foodShopId],references: [id], onDelete: Cascade)
+  foodShop      FoodShop  @relation(fields: [foodShopId], references: [id], onDelete: Cascade)
   items         Item[]
 }
 

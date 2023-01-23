@@ -81,6 +81,7 @@ function Modal({
   maxHeight,
   ...divProps
 }: ModalProps) {
+  
   const controlledVisibility = useMemo(() => visible !== undefined, []);
   if (!controlledVisibility) {
     const [_visible, _onVisibleChange] = useUncontrolled(
@@ -96,6 +97,7 @@ function Modal({
   }, [onVisibleChange]);
 
   const handleClose = useCallback(() => {
+    if (typeof window === "undefined") return
     if (onVisibleChange) onVisibleChange(false);
     const body = document.getElementById("body");
     if (body) {
@@ -105,6 +107,7 @@ function Modal({
   }, [onVisibleChange]);
 
   const noScroll = useCallback(() => {
+    if (typeof window === "undefined") return
     const body = document.getElementById("body");
     const notIncludes = !body?.className.includes('overflow-hidden')
     if (body && notIncludes) {
@@ -118,6 +121,7 @@ function Modal({
     onClose: handleClose,
     onOpen: handleOpen,
   };
+  
   const triggerElement: ReactNode =
     typeof trigger === "function"
       ? trigger(childProps)
@@ -125,13 +129,14 @@ function Modal({
       ? cloneElement(trigger, { onClick: handleOpen })
       : null;
 
-  if (typeof window === "undefined") return <div>{triggerElement}</div>;
+      if (typeof window === 'undefined') return <>{triggerElement}</>
 
   const modalRoot = useMemo(
-    () =>
-      getModalRoot ? getModalRoot() : document.getElementById(defaultRoot)!,
+    () =>{
+      return getModalRoot ? getModalRoot() : document.getElementById(defaultRoot)!},
     []
   );
+
   const modalStyle = useMemo(
     () => ({
       width,
@@ -144,6 +149,7 @@ function Modal({
     }),
     [width, minWidth, maxWidth, height, minHeight, maxHeight, style]
   );
+  
 
   useEffect(() => {
     if (!(closable || closableByKeyboard) || typeof window === "undefined")
@@ -153,6 +159,9 @@ function Modal({
     document.addEventListener<"keydown">("keydown", handleKeydown);
     return () => document.removeEventListener("keydown", handleKeydown);
   }, [closableByKeyboard, buttonsToClose, handleClose]);
+
+    visible && noScroll()
+
 
   const modalElement = (
     <div
@@ -166,9 +175,11 @@ function Modal({
         {...divProps}
       >
         {closable && (
+          <div>
           <Button type="cancel" className="absolute top-3 right-3" onClick={handleClose}>
             {closeIcon}
           </Button>
+          </div>
         )}
         {!children
           ? null
@@ -185,8 +196,7 @@ function Modal({
   return (
     <>
       {triggerElement}
-      {visible || !unmount ? createPortal(modalElement, modalRoot) : null}
-      {visible && noScroll()}
+      {visible || !unmount ? createPortal(modalElement, modalRoot!) : null}
     </>
   );
 }

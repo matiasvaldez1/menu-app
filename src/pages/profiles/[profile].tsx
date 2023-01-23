@@ -29,5 +29,6 @@ export default function Profile(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
   const {data} = trpc.profileRouter.byId.useQuery({id: props.id})
+  
   return <div>Profile</div>;
 }
