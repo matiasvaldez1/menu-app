@@ -1,22 +1,28 @@
 import Button from "@components/ui/Button";
 import Input from "@components/ui/Input";
 import useWatcher from "@hooks/useWatcher";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { trpc } from "src/utils/trpc";
 
 export default function CreateShopInfo({
   showModalCreateShop,
+  refetchUserInfo
 }: {
   showModalCreateShop: (bool: boolean) => void;
+  refetchUserInfo: () => void
 }) {
   const createShopInfoMutation =
     trpc.dashboardRouter.createShopUser.useMutation();
   const [formValues, setFormValues] = useState({ name: "", logo: "" });
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!formValues.name || !formValues.logo) return;
-    createShopInfoMutation.mutate(formValues);
+    const result = await createShopInfoMutation.mutateAsync(formValues);
+    if(Boolean(result)){
+    showModalCreateShop(false)
+    refetchUserInfo()
+    }
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -25,13 +31,8 @@ export default function CreateShopInfo({
       ...prevForm,
       [e.target.name]: e.target.value,
     }));
-  };
+  }; 
 
-  useWatcher(() => {
-    if (createShopInfoMutation.data) {
-      showModalCreateShop(false);
-    }
-  }, [createShopInfoMutation.data]);
   return (
     <div className="w-96 rounded-xl">
       <form onSubmit={handleSubmit}>

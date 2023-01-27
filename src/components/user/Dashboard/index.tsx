@@ -1,15 +1,21 @@
 import Modal from "@components/ui/Modal";
 import CreateShopInfo from "@components/user/CreateShopInfo";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { trpc } from "src/utils/trpc";
 
 export default function DashboardView() {
-  const shop = trpc.dashboardRouter.getUserShopInfo.useQuery();
-  const [showModalCreateShop, setShowModalCreateShop] = useState(Boolean(!shop.data?.name));
+  const {data, refetch} = trpc.dashboardRouter.getUserShopInfo.useQuery();
+  const [showModalCreateShop, setShowModalCreateShop] = useState(false);
+
+  useEffect(() => {
+    if (!data?.name && typeof window !== "undefined") {
+      setShowModalCreateShop(true);
+    }
+  }, [data]);
 
   return (
     <div>
-      DashboardView
+      Dashboard view
       <Modal
         forwardControl
         visible={showModalCreateShop}
@@ -19,6 +25,7 @@ export default function DashboardView() {
         component={CreateShopInfo}
         componentProps={{
           showModalCreateShop: setShowModalCreateShop,
+          refetchUserInfo: refetch
         }}
       />
     </div>

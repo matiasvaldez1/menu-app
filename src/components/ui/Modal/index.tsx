@@ -129,7 +129,7 @@ function Modal({
       ? cloneElement(trigger, { onClick: handleOpen })
       : null;
 
-      if (typeof window === 'undefined') return <>{triggerElement}</>
+  if (typeof window === 'undefined') return <>{triggerElement}</>
 
   const modalRoot = useMemo(
     () =>{

@@ -38,12 +38,8 @@ export const dashboardRouter = router({
       return response.id;
     }),
   getUserShopInfo: publicProcedure.query(async ({ ctx }) => {
-    const user = await ctx.prisma.session.findFirst({
-      where: { sessionToken: ctx.session?.user?.id },
-    });
-
     return await ctx.prisma.foodShop.findFirst({
-      where: { id: user?.userId },
+      where: { userId: ctx.session?.user?.id },
     });
   }),
 });

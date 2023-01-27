@@ -62,7 +62,7 @@ model FoodShop {
   id            String    @id @default(cuid())
   userId        String    
   name          String
-  qr            String   @unique
+  qr            String 
   logo          String   
   user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   categories    Categories[]
