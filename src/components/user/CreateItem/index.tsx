@@ -6,10 +6,10 @@ import Image from "next/image";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { trpc } from "src/utils/trpc";
 
-export default function CreateCategory({
-  onCategoryCreated,
+export default function CreateItem({
+  onItemCreated,
 }: {
-  onCategoryCreated: (bool: boolean) => void;
+  onItemCreated: (bool: boolean) => void;
 }) {
   const createCategoryMutation =
     trpc.dashboardRouter.createCategory.useMutation();
@@ -19,8 +19,8 @@ export default function CreateCategory({
     e.preventDefault();
     if (!formValues.name || !formValues.logo) return;
     const result = createCategoryMutation.mutateAsync(formValues);
-    if(Boolean(result)){
-      onCategoryCreated(false);
+    if (Boolean(result)) {
+      onItemCreated(false);
     }
   };
 
@@ -49,7 +49,9 @@ export default function CreateCategory({
           onChange={handleChange}
           value={formValues.logo}
         />
-        <Button htmlType="submit" type="approve">Crear</Button>
+        <Button htmlType="submit" type="approve">
+          Crear
+        </Button>
       </form>
     </div>
   );

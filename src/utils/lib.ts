@@ -3,6 +3,7 @@ import { NextPageContext } from "next";
 
 export const routesRoots: Record<string, string> = {
   dashboard: "/dashboard",
+  items: "/items"
 };
 
 export const publicRoutes:  Record<string, string> = {
