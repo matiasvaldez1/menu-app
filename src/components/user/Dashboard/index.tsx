@@ -1,5 +1,5 @@
 import Modal from "@components/ui/Modal";
-import CreateShopInfo from "@components/user/CreateShopInfo";
+import CreateShopInfo from "@components/user/Dashboard/CreateShopInfo";
 import { useEffect, useState } from "react";
 import { trpc } from "src/utils/trpc";
 

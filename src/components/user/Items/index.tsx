@@ -1,8 +1,10 @@
 import Button from "@components/ui/Button";
 import Modal from "@components/ui/Modal";
 import useTrigger from "@hooks/useTrigger";
-import CreateCategory from "../CreateCategory";
-import CreateItem from "../CreateItem";
+import CategoriesDisplay from "./CategoriesDisplay";
+import CreateCategory from "./CreateCategory";
+import CreateItem from "./CreateItem";
+import ItemsDisplay from "./ItemsDisplay";
 
 export default function ItemsView() {
   const [showCategoryModal, openCategoryModal, setCategoryodal] = useTrigger(false);
@@ -39,6 +41,8 @@ export default function ItemsView() {
           onItemCreated: setItemModal,
         }}
       />
+      <ItemsDisplay />
+      <CategoriesDisplay />
     </div>
   );
 }

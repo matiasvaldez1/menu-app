@@ -14,9 +14,13 @@ export const itemsRouter = router({
       })
     )
     .mutation(async ({ input, ctx }) => {
+      const foodShop = await ctx.prisma.foodShop.findFirst({
+        where: { userId: ctx.session?.user?.id },
+      });
       const response = await ctx.prisma.item.create({
         data: {
           ...input,
+          foodShopId: foodShop!.id
         },
       });
       return response.id;
@@ -24,17 +28,13 @@ export const itemsRouter = router({
   createCategory: publicProcedure
     .input(z.object({ name: z.string(), logo: z.string() }))
     .mutation(async ({ input, ctx }) => {
-      const categoryInfo = input;
-      const user = await ctx.prisma.session.findFirst({
-        where: { sessionToken: ctx.session?.user?.id },
-      });
       const foodShop = await ctx.prisma.foodShop.findFirst({
-        where: { userId: user?.userId },
+        where: { userId: ctx.session?.user?.id },
       });
       const response = await ctx.prisma.categories.create({
         data: {
-          title: categoryInfo.name,
-          logo: categoryInfo.logo,
+          title: input.name,
+          logo: input.logo,
           foodShopId: foodShop!.id,
         },
       });
@@ -46,6 +46,14 @@ export const itemsRouter = router({
     });
     return await ctx.prisma.categories.findMany({
       where: { foodShopId: foodShop!.id },
+    });
+  }),
+  getItems: publicProcedure.query(async ({ ctx }) => {
+    const foodShop = await ctx.prisma.foodShop.findFirst({
+      where: { userId: ctx.session?.user?.id },
+    });
+    return await ctx.prisma.item.findMany({
+      where: { foodShopId: foodShop?.id },
     });
   }),
 });

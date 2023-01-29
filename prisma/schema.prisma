@@ -84,6 +84,7 @@ model Item {
   price         Int
   description   String
   categoriesId  String
+  foodShopId    String      
   categories    Categories  @relation(fields: [categoriesId], references: [id], onDelete: Cascade)
 }
 

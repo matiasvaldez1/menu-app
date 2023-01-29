@@ -18,7 +18,7 @@ export default function CreateItem({
     } else {
       return [];
     }
-  }, []);
+  }, [data]);
   const [formValues, setFormValues] = useState({
     title: "",
     logo: "",
@@ -26,7 +26,6 @@ export default function CreateItem({
     price: 0,
     categoriesId: "",
   });
-  console.log(formValues)
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

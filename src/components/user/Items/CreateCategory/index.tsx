@@ -1,8 +1,6 @@
 import Button from "@components/ui/Button";
 import Input from "@components/ui/Input";
 import Title from "@components/ui/Title";
-import useWatcher from "@hooks/useWatcher";
-import Image from "next/image";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { trpc } from "src/utils/trpc";
 
@@ -11,15 +9,14 @@ export default function CreateCategory({
 }: {
   onCategoryCreated: (bool: boolean) => void;
 }) {
-  const createCategoryMutation =
-    trpc.items.createCategory.useMutation();
+  const createCategoryMutation = trpc.items.createCategory.useMutation();
   const [formValues, setFormValues] = useState({ name: "", logo: "" });
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!formValues.name || !formValues.logo) return;
     const result = createCategoryMutation.mutateAsync(formValues);
-    if(Boolean(result)){
+    if (Boolean(result)) {
       onCategoryCreated(false);
     }
   };
@@ -49,7 +46,9 @@ export default function CreateCategory({
           onChange={handleChange}
           value={formValues.logo}
         />
-        <Button htmlType="submit" type="approve">Crear</Button>
+        <Button htmlType="submit" type="approve">
+          Crear
+        </Button>
       </form>
     </div>
   );
