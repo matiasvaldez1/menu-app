@@ -17,7 +17,7 @@ export async function getServerSideProps(
     }),
     transformer: superjson,
   });
-  await ssg.dashboardRouter.getUserShopInfo.prefetch();
+  await ssg.dashboard.getUserShopInfo.prefetch();
   return {
     props: {
       trpcState: ssg.dehydrate(),

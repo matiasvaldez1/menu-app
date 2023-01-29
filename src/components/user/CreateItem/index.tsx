@@ -1,9 +1,8 @@
 import Button from "@components/ui/Button";
 import Input from "@components/ui/Input";
+import Select from "@components/ui/Select";
 import Title from "@components/ui/Title";
-import useWatcher from "@hooks/useWatcher";
-import Image from "next/image";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useMemo, useState } from "react";
 import { trpc } from "src/utils/trpc";
 
 export default function CreateItem({
@@ -11,43 +10,81 @@ export default function CreateItem({
 }: {
   onItemCreated: (bool: boolean) => void;
 }) {
-  const createCategoryMutation =
-    trpc.dashboardRouter.createCategory.useMutation();
-  const [formValues, setFormValues] = useState({ name: "", logo: "" });
+  const createItemMutation = trpc.items.createItem.useMutation();
+  const { data } = trpc.items.getCategories.useQuery();
+  const categoriesOptions = useMemo(() => {
+    if (data && data?.length > 0) {
+      return data?.map((data) => ({ value: data.id, label: data.title }));
+    } else {
+      return [];
+    }
+  }, []);
+  const [formValues, setFormValues] = useState({
+    title: "",
+    logo: "",
+    description: "",
+    price: 0,
+    categoriesId: "",
+  });
+  console.log(formValues)
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!formValues.name || !formValues.logo) return;
-    const result = createCategoryMutation.mutateAsync(formValues);
+    if (!formValues.title || !formValues.logo) return;
+    const result = createItemMutation.mutateAsync(formValues);
     if (Boolean(result)) {
       onItemCreated(false);
     }
   };
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     e.preventDefault();
+    const { name, value } = e.target;
     setFormValues((prevForm) => ({
       ...prevForm,
-      [e.target.name]: e.target.value,
+      [name]: name === "price" ? Number(value) : value,
     }));
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <Title type="bold">Nombre</Title>
+        <Title type="bold">Titulo</Title>
         <Input
-          placeholder="Nombre"
-          name="name"
+          placeholder="Titulo"
+          name="title"
           onChange={handleChange}
-          value={formValues.name}
+          value={formValues.title}
         />
-        <Title type="bold">Logo de la categoria</Title>
+        <Title type="bold">Logo del item</Title>
         <Input
           placeholder="Logo"
           name="logo"
           onChange={handleChange}
           value={formValues.logo}
+        />
+        <Title type="bold">Descripcion </Title>
+        <Input
+          placeholder="Descripcion"
+          name="description"
+          onChange={handleChange}
+          value={formValues.description}
+        />
+        <Title type="bold">Precio</Title>
+        <Input
+          placeholder="Precio"
+          name="price"
+          onChange={handleChange}
+          value={formValues.price}
+        />
+        <Title type="bold">Categoria del item</Title>
+        <Select
+          name="categoriesId"
+          options={categoriesOptions}
+          onChange={handleChange}
+          value={formValues.categoriesId}
         />
         <Button htmlType="submit" type="approve">
           Crear

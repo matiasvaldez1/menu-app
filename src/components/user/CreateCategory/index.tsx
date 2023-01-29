@@ -12,7 +12,7 @@ export default function CreateCategory({
   onCategoryCreated: (bool: boolean) => void;
 }) {
   const createCategoryMutation =
-    trpc.dashboardRouter.createCategory.useMutation();
+    trpc.items.createCategory.useMutation();
   const [formValues, setFormValues] = useState({ name: "", logo: "" });
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {

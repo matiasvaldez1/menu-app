@@ -12,7 +12,7 @@ export default function CreateShopInfo({
   refetchUserInfo: () => void
 }) {
   const createShopInfoMutation =
-    trpc.dashboardRouter.createShopUser.useMutation();
+    trpc.dashboard.createShopUser.useMutation();
   const [formValues, setFormValues] = useState({ name: "", logo: "" });
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {

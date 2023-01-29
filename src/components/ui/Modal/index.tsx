@@ -177,7 +177,7 @@ function Modal({
         {closable && (
           <div>
           <Button type="cancel" className="absolute top-3 right-3" onClick={handleClose}>
-            {closeIcon}
+            {/* {closeIcon} */} X
           </Button>
           </div>
         )}

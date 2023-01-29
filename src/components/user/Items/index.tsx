@@ -1,19 +1,20 @@
 import Button from "@components/ui/Button";
 import Modal from "@components/ui/Modal";
 import useTrigger from "@hooks/useTrigger";
-import React from "react";
 import CreateCategory from "../CreateCategory";
+import CreateItem from "../CreateItem";
 
 export default function ItemsView() {
-  const [showModal, openModal, setShowModal] = useTrigger(false);
+  const [showCategoryModal, openCategoryModal, setCategoryodal] = useTrigger(false);
+  const [showItemModal, openItemModal, setItemModal] = useTrigger(false);
 
   return (
     <div>
       ItemsView
       <Modal
-        closable={false}
-        onVisibleChange={setShowModal}
-        visible={showModal}
+        closable
+        onVisibleChange={setCategoryodal}
+        visible={showCategoryModal}
         trigger={
           <Button type="approve" className="h-fit">
             Create category
@@ -21,7 +22,21 @@ export default function ItemsView() {
         }
         component={CreateCategory}
         componentProps={{
-          onCategoryCreated: setShowModal,
+          onCategoryCreated: setCategoryodal,
+        }}
+      />
+      <Modal
+        closable
+        onVisibleChange={setItemModal}
+        visible={showItemModal}
+        trigger={
+          <Button type="approve" className="h-fit">
+            Create item
+          </Button>
+        }
+        component={CreateItem}
+        componentProps={{
+          onItemCreated: setItemModal,
         }}
       />
     </div>

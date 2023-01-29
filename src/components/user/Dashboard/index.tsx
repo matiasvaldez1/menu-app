@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { trpc } from "src/utils/trpc";
 
 export default function DashboardView() {
-  const {data, refetch} = trpc.dashboardRouter.getUserShopInfo.useQuery();
+  const {data, refetch} = trpc.dashboard.getUserShopInfo.useQuery();
   const [showModalCreateShop, setShowModalCreateShop] = useState(false);
 
   useEffect(() => {
