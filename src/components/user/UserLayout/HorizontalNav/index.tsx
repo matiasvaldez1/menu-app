@@ -1,10 +1,13 @@
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import Card from "@components/ui/Card";
 
 export default function HorizontalNav() {
   const { data } = useSession();
   return (
-    <div className="flex justify-between bg-gray-600 px-8 text-sm">
+    <Card>
+
+    <div className="flex justify-between px-8 text-sm">
       <div>TusMenus App</div>
       <div className="flex align-middle">
         <div className="flex flex-col justify-center">
@@ -27,5 +30,6 @@ export default function HorizontalNav() {
         </div>
       </div>
     </div>
+    </Card>
   );
 }
