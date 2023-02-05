@@ -3,8 +3,8 @@ import { createElement, memo } from "react";
 
 const typeStyles = {
   default: "",
-  category: "text-red-500 font-bold text-base leading-tight tracking-tight",
-  primary: "text-blue-500 font-bold text-xl leading-normal tracking-tight",
+  category: "text-gray-500 font-normal text-base leading-normal tracking-normal",
+  primary: "text-primary-100 font-bold text-xl leading-normal tracking-tight",
   secondary:
     "text-gray-500 font-normal text-base leading-normal tracking-normal",
   bold: "text-xl font-bold leading-tight tracking-tight",

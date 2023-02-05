@@ -7,8 +7,7 @@ export default function HorizontalNav() {
   return (
     <Card>
 
-    <div className="flex justify-between px-8 text-sm">
-      <div>TusMenus App</div>
+    <div className="flex justify-end px-8 text-sm">
       <div className="flex align-middle">
         <div className="flex flex-col justify-center">
           <Image

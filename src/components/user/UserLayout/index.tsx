@@ -11,7 +11,6 @@ export default function UserLayout({
   children: ReactElement;
   title: string;
 }) {
-
   return (
     <>
       <CommonHead title={title} />
@@ -21,7 +20,7 @@ export default function UserLayout({
         </Card>
         <div className="col-span-8">
           <HorizontalNav />
-          <div className="flex w-full h-full bg-whithey">{children}</div>
+          <div className="flex h-full w-full bg-whithey">{children}</div>
         </div>
       </div>
     </>

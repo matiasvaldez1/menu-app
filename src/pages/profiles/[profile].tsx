@@ -4,6 +4,7 @@ import { createContext } from "src/server/trpc/context";
 import { appRouter } from "src/server/trpc/router/_app";
 import superjson from "superjson";
 import { trpc } from "src/utils/trpc";
+import { CommonHead } from "@components/ui/Seo";
 
 export async function getServerSideProps(
   context: GetServerSidePropsContext<{ profile: string }>
@@ -28,7 +29,13 @@ export async function getServerSideProps(
 export default function Profile(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
-  const {data} = trpc.profileRouter.byId.useQuery({id: props.id})
-  
-  return <div>Profile</div>;
+  const { data } = trpc.profileRouter.byId.useQuery({ id: props.id });
+  console.log(data);
+
+  return (
+    <div>
+      <CommonHead title={data?.name as string} />
+      Profile
+    </div>
+  );
 }
